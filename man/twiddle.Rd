@@ -1,6 +1,6 @@
 \name{~}
 \alias{~}
-\title{Overloaded formula operator for in-place object modification.}
+\title{Overloaded tilde operator for in-place object modification.}
 \usage{
 "~"(x, y = NULL)
 }
@@ -23,8 +23,18 @@ leaving normal formula expressions alone.
 In general, if we called \code{~\{someexpr(x, ...)\}}, turn
 that into \code{x <- someexpr(x, ...)} in the parent
 environment. Otherwise, treat it as a formula.
+
+This is dangerous meta-programming, but we live on the
+edge!
+}
+\examples{
+x <- c(1,2,3)
+~{factor(x))} # x is now a factor(c(1,2,3), levels = c(1,2,3))
+
+x <- c(1,2,3)
+~{sum(x)} # x is now 6
 }
 \seealso{
-\link{\code{base::`~`}}
+\code{\link{~}}
 }
 
