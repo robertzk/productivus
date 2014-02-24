@@ -13,10 +13,11 @@ find_lines_in_history <- function(begin, to = NULL) {
   if (is.na(linenum)) return(character(0))
 
   rawhist <- rawhist[seq_len(length(rawhist) - linenum + 1) + linenum - 1]
+  endlinenum <- 1
   if (!is.null(to)) {
     endlinenum <- grep(unregex(to), rawhist)[1]
     if (is.null(linenum)) endlinenum <- length(rawhist)
-  }
+  } 
 
   rawhist[seq_len(endlinenum)]
 }
