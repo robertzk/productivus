@@ -24,6 +24,7 @@ context("lastn function")
       lines <-
         vapply(1:9, function(i) paste0("x[", i, "] <- ", i + 1), character(1))
       lines <- append(lines, "lastn(1)")
+      lines <- append(lines, "ed(x)")
       writeLines(lines, file)
     }
     lastn(9)

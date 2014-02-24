@@ -12,23 +12,24 @@
 #' \code{last9} which call this function with \code{n = 1, 2, ... 9}
 #' respectively.
 #'
+#' Note: This function will also ignore past \code{ed} commands.
+#'
 #' @param n numeric. The last \code{n} lines to execute.
 #' @param verbose logical. Whether or not to display the lines getting
 #'    executed as a message. Default is \code{FALSE} (i.e., do not display).
+#' @param eval logical. Whether to run the string of code that will be
+#'    executed, or merely return the character containing its contents.
 #' @aliases last1, last2, last3, last4, last5, last6, last7, last8, last9
 #' @export
-lastn <- function(n, verbose = FALSE) {
-  file1 <- tempfile("Rrawhist")
-  savehistory(file1)
-  rawhist <- readLines(file1)
-  rawhist <- rawhist[setdiff(seq_len(length(rawhist)),
-                             grep("^\\s*last[1-9n]\\(.*\\)\\s*", rawhist))]
-  unlink(file1)
+lastn <- function(n, verbose = FALSE, eval = TRUE) {
+  rawhist <- raw_history()
   nlines <- length(rawhist)
   inds <- max(1, nlines - n + 1):nlines
   runlines <- paste0(rawhist[inds], collapse = "\n")
   if (verbose) message(runlines)
-  eval.parent(parse(text = runlines))
+
+  if (eval) eval.parent(parse(text = runlines))
+  else runlines
 }
 
 #' @export
