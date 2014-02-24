@@ -76,6 +76,8 @@ ed <- function(obj = 1, tweak = NULL, verbose = FALSE, echo = getOption("ed.echo
     by <- tweak
   }
 
+  # TODO: Write offset handling (+/-n)
+
   safe_file <- function(string) str_replace_all(obj, "[()\\^$.|?*\\[\"']", "")
   # If a number, edit and execute the last n lines
   expr <- if (is_unpromised_integer) { # don't evaluate promises
