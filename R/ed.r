@@ -82,17 +82,17 @@ ed <- function(obj = 1, tweak = NULL, verbose = FALSE, echo = getOption("ed.echo
   # If a number, edit and execute the last n lines
   expr <- if (is_unpromised_integer) { # don't evaluate promises
     title <- paste0("Editing previous ", obj, " lines")
-    file <- tempfile(paste0(safe_file(title), "                "))
+    file <- tempfile(paste0(safe_file(title), "                "), fileext = ".r")
     writeLines(str_split(lastn(obj + by, eval = FALSE), "\n")[[1]][seq_len(obj)], file)
   } else if (is_unpromised_character) { # don't evaluate promises
     title <- paste0("Editing line matching '", obj, "'")
     if (is.character(to)) title <- paste0(c(title, " through '", to, "'"), collapse = "")
     lines <- find_lines_in_history(obj, to)
-    file <- tempfile(paste0(safe_file(title), "                "))
+    file <- tempfile(paste0(safe_file(title), "                "), fileext = ".r")
     writeLines(lines, file)
   } else { 
     title <- paste0("Editing ", deparse(substitute(obj)))
-    file <- tempfile(paste0(title, "               "))
+    file <- tempfile(paste0(title, "               "), fileext = ".r")
     control <- eval(formals(dput)$control)
     if (!identical(show.attributes, TRUE))
       control <- setdiff(control, 'showAttributes')
