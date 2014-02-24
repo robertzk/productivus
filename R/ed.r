@@ -15,5 +15,5 @@
 #' @examples
 #' some_function <- function(x) { x + 1}
 #' ed(some_function) # opens an in-line editor to mess with some_function
-ed <- function(obj, ...) eval.parent(substitute(x <- edit(x, ...)))
+ed <- function(obj, ...) eval.parent(substitute(obj <- edit(obj, ...)))
 
