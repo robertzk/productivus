@@ -30,13 +30,10 @@
      tmp <- tmp[[2]]
      eval.parent(bquote(.(tmp[[2]]) <- .(tmp)))
    } else {
-     foomula <-
-       if (missing(y)) paste0("~", deparse(substitute(x)))
-       else paste0(deparse(substitute(x)), " ~ ", deparse(substitute(y)))
-
      eval.parent(parse(text =
-      paste0("(function() { `~` <- .Primitive(\"~\"); out <- ", foomula,
-             "; environment(out) <- parent.frame(); out })()") ))
+      paste0("(function() { `~` <- .Primitive('~')\n",
+             'structure(', paste(deparse(match.call()), collapse = "\n"),
+             ', .Environment = parent.frame()) })()'))) 
    }
 }
 

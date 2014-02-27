@@ -29,4 +29,9 @@ test_that("it preserves normal formulas", {
     info = "overloaded twiddle must preserve environments in normal formulas")
 })
 
-
+test_that("it should not error on converting long formulas from strings", {
+  form <- tryCatch(as.formula(paste0("dep_var ~ ", paste0(letters, collapse = " + "))),
+           error = function(foo) "error")
+  expect_is(form, "formula",
+    info = "overloaded twiddle must be able to leave arbitrarily long formulas unchanged")
+})
