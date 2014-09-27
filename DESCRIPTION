@@ -7,5 +7,7 @@ Authors@R: c(person("Robert", "Krzyzanowski", email = "technoguyrob@gmail.com",
     role = c("aut", "cre")))
 Depends:
     R (>= 3.0.0)
+Imports:
+    stringr
 License: GPL (>= 2)
 LazyData: true
