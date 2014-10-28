@@ -43,7 +43,15 @@ add_block_to_formals <- function(fn) {
 inject_yield <- function(fn) {
   injection <- new.env(parent = environment(fn))
   injection$yield <- function(...) {
-    eval(substitute(`_block`, parent.frame()), envir = parent.frame(2))
+    arguments <- list(...)
+    expr <- substitute(`_block`, parent.frame())
+    if (length(arguments) == 0) {
+      eval(expr, envir = parent.frame(2))
+    } else {
+      tmp <- as.environment(arguments)
+      parent.env(tmp) <- parent.frame(2)
+      eval(expr, envir = tmp)
+    }
   }
   injection$block_given <- function() {
     eval.parent(quote(missing(`_block`)))
