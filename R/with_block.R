@@ -65,7 +65,7 @@ inject_yield <- function(fn) {
     }
   }
   injection$block_given <- function() {
-    eval.parent(quote(missing(`_block`)))
+    eval.parent(quote(!missing(`_block`)))
   }
   environment(fn) <- injection
   fn

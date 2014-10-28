@@ -21,7 +21,14 @@ test_that('it can upcase names as an example block usage', {
   })
 
   expect_identical(assign_names(letters[1:5], { toupper(name) }),
-    list(element_A = 'a', element_B = 'b', element_C = 'c',
+    c(element_A = 'a', element_B = 'b', element_C = 'c',
       element_D = 'd', element_E = 'e'))
 })
+
+test_that('block_given works as expected', {
+  has_block <- with_block(function() block_given())
+  expect_true(has_block({ 1 + 1}))
+  expect_false(has_block())
+})
+
 
