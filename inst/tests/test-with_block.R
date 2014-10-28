@@ -15,3 +15,13 @@ test_that('it can execute a block with local passing', {
   expect_equal(blocked_fn(1, 2, { z + 1 }), 5)
 })
 
+test_that('it can upcase names as an example block usage', {
+  assign_names <- with_block(function(x) {
+   setNames(x, vapply(x, function(y) paste0("element_", yield(name = y)), character(1)))
+  })
+
+  expect_identical(assign_names(letters[1:5], { toupper(name) }),
+    list(element_A = 'a', element_B = 'b', element_C = 'c',
+      element_D = 'd', element_E = 'e'))
+})
+
