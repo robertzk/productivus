@@ -29,5 +29,8 @@ assign_names <- with_block(function(x) {
 })
 stopifnot(identical(assign_names(letters[1:5], { toupper(name) }),
   list(A = 'a', B = 'b', C = 'c', D = 'd', E = 'e')))
+
+maybe_block <- with_block(function() { list(1, if (block_given) yield()) })
+stopifnot(identical(maybe_block(2), list(1, 2)) && identical(maybe_block(), list(1)))
 }
 
