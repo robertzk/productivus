@@ -8,6 +8,7 @@
 #'    within the body of \code{fn}. Additional "arguments" can be passed
 #'    to \code{yield} which will be injected into the lexical scope of
 #'    the evaluation.
+#' @export
 #' @examples
 #' blocked_fn <- with_block(function(x, y) x + y + yield())
 #' stopifnot(identical(blocked_fn(1, 2, { 3 + 4 }), 10))
@@ -18,5 +19,20 @@
 #' stopifnot(identical(assign_names(letters[1:5], { toupper(name) }),
 #'   list(A = 'a', B = 'b', C = 'c', D = 'd', E = 'e')))
 with_block <- function(fn) {
-  
+  # TODO: Handle splats  
+  stopifnot(is.function(fn))
+
+  fn <- add_block_to_formals(fn)
+
+
 }
+
+add_block_to_formals <- function(fn) {
+  formals <- formals(fn)
+  formals[length(formals) + 1] <- alist(dummy = )
+  names(formals)[length(formals)] <- "_block"
+  formals(fn) <- formals
+
+  fn
+}
+
