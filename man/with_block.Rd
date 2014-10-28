@@ -25,12 +25,13 @@ blocked_fn <- with_block(function(x, y) x + y + yield())
 stopifnot(identical(blocked_fn(1, 2, { 3 + 4 }), 10))
 
 assign_names <- with_block(function(x) {
- setNames(x, vapply(x, function(y) paste("element_", yield(name = y)), character(1)))
+ setNames(x, vapply(x, function(y) paste0("element_", yield(name = y)), character(1)))
 })
 stopifnot(identical(assign_names(letters[1:5], { toupper(name) }),
-  list(A = 'a', B = 'b', C = 'c', D = 'd', E = 'e')))
+  list(element_A = 'a', element_B = 'b', element_C = 'c',
+    element_D = 'd', element_E = 'e')))
 
-maybe_block <- with_block(function() { list(1, if (block_given) yield()) })
+maybe_block <- with_block(function() { list(1, if (block_given()) yield()) })
 stopifnot(identical(maybe_block(2), list(1, 2)) && identical(maybe_block(), list(1)))
 }
 
