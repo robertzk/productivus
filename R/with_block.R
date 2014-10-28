@@ -19,17 +19,16 @@
 #' stopifnot(identical(assign_names(letters[1:5], { toupper(name) }),
 #'   list(A = 'a', B = 'b', C = 'c', D = 'd', E = 'e')))
 #'
-#' maybe_block <- with_block(function() { list(1, if (block_given) yield()) })
+#' maybe_block <- with_block(function() { list(1, if (block_given()) yield()) })
 #' stopifnot(identical(maybe_block(2), list(1, 2)) && identical(maybe_block(), list(1)))
 with_block <- function(fn) {
   # TODO: Handle splats  
   stopifnot(is.function(fn))
 
   fn <- add_block_to_formals(fn)
+  fn <- inject_yield(fn)
 
-
-
-
+  fn
 }
 
 add_block_to_formals <- function(fn) {
@@ -38,6 +37,18 @@ add_block_to_formals <- function(fn) {
   names(formals)[length(formals)] <- "_block"
   formals(fn) <- formals
 
+  fn
+}
+
+inject_yield <- function(fn) {
+  injection <- new.env(parent = environment(fn))
+  injection$yield <- function(...) {
+    eval(substitute(`_block`, parent.frame()), envir = parent.frame(2))
+  }
+  injection$block_given <- function() {
+    eval.parent(quote(missing(`_block`)))
+  }
+  environment(fn) <- injection
   fn
 }
 
