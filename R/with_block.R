@@ -48,19 +48,21 @@ inject_yield <- function(fn) {
     # Work backwards through call stack in case of nested calls.
     # TODO: (RK) Ever need to support nested blocked function calls?
     expr <- NULL
-    for (i in seq_along(sys.frames())) {
+    i <- 1
+    while(i <= length(sys.frames())) {
       if (exists('_block', where = parent.frame(i), inherits = FALSE)) {
         expr <- substitute(`_block`, parent.frame(i))
         break
       }
+      i <- i + 1
     }
     if (is.null(expr)) stop("Could not find block - did you call yield() correctly?")
 
     if (length(arguments) == 0) {
-      eval(expr, envir = parent.frame(2))
+      eval(expr, envir = parent.frame(i + 1))
     } else {
       tmp <- as.environment(arguments)
-      parent.env(tmp) <- parent.frame(2)
+      parent.env(tmp) <- parent.frame(i + 1)
       eval(expr, envir = tmp)
     }
   }

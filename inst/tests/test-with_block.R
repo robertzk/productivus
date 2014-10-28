@@ -25,9 +25,10 @@ test_that('it can upcase names as an example block usage', {
    setNames(x, vapply(x, function(y) paste0("element_", yield(name = y)), character(1)))
   })
 
-  expect_identical(assign_names(letters[1:5], { toupper(name) }),
-    c(element_A = 'a', element_B = 'b', element_C = 'c',
-      element_D = 'd', element_E = 'e'))
+  suffix <- '_'
+  expect_identical(assign_names(letters[1:5], { paste0(toupper(name), suffix) }),
+    c(element_A_ = 'a', element_B_ = 'b', element_C_ = 'c',
+      element_D_ = 'd', element_E_ = 'e'))
 })
 
 test_that('block_given works as expected', {
