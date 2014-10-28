@@ -1,0 +1,20 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Ruby-like block-accepting functions}
+-->
+
+```{r, echo = FALSE, message = FALSE}
+library(productivus)
+```
+
+# Ruby-like block-accepting functions
+
+Ruby has the notion of passing a "block" to a function: just a bunch of
+code you wish you could be run within the function, but it should be up to
+the function to decide how. You can now do this in R.
+
+```{r, eval = TRUE}
+plus_with_yield <- with_block(function(x, y) { x + y + yield() })
+plus_with_yield(1, 2, { 3 + 4 })
+```
+
