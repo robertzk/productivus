@@ -11,7 +11,7 @@
 #' "pico", "xemacs", "xedit", and potentially more (OS specific).
 #'
 #' @seealso \code{\link{edit}}
-#' @param obj an object. It will be modified in place, i.e., calling
+#' @param obj ANY. It will be modified in place, i.e., calling
 #'    \code{ed(obj)} is equivalent to \code{obj <- edit(obj)}.
 #'    If an integer is passed, the last \code{obj} lines in the interactive
 #'    console will be edited and executed. The default is \code{1}.
@@ -56,7 +56,6 @@ ed <- function(obj = 1, tweak = NULL, verbose = FALSE, echo = getOption("ed.echo
                by = 0, to = NULL) {
   file <- NULL; replace <- FALSE; title <- NULL
 
-  require(utils)
   stopifnot(interactive())
 
   # check unpromised values, since obj could be a variable containing an integer or character
