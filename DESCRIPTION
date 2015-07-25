@@ -2,7 +2,7 @@ Package: productivus
 Title: Productivus R productivity suite
 Description: A suite of productivity tools for R -- debugging, visualization,
     inline editing, etc.
-Version: 0.1.1
+Version: 0.1.22
 Authors@R: c(person("Robert", "Krzyzanowski", email = "technoguyrob@gmail.com",
     role = c("aut", "cre")))
 Depends:

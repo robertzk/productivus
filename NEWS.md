@@ -1,3 +1,7 @@
+# Version 0.1.2 
+
+* Added [`parent_env_chain`](R/parent_env_chain.R) helper.
+
 # Version 0.1.1
 
  * Added the ability to convert functions into ones that accept a block
