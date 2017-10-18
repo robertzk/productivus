@@ -1,4 +1,8 @@
-# Version 0.1.2 
+# Version 0.1.3
+
+* Added documentation for `pp`
+
+# Version 0.1.2
 
 * Added [`parent_env_chain`](R/parent_env_chain.R) helper.
 

@@ -1,4 +1,23 @@
-# TODO: (RK) Document extensively!
+## TODO: more extensive documentation
+#' Ruby-style string interpolation
+#'
+#' Writing strings for messages with variable content often involves a mess of
+#' nested calls to \code{paste}. Use this function to reduce the clutter created by these.
+#'
+#' @examples
+#' \dontrun{
+#'   x <- 5
+#'   pp("we assigned ${x} to x")
+#'   x <- "this time we'll use a string"
+#'   pp("we assigned ${x} to x, and the value of x changed")
+#'   .small_env <- new.env()
+#'   .small_env$x <- "this is inside an environment"
+#'   pp("if we declare an environment, we see that x is ${x} there", envir = .small_env)
+#' }
+#' @param ... a character vector, or a (possibly nested) list of character vectors.
+#' @param envir environment. The environment to fetch values to use in interpolation.
+#' @param sep character. Passed into the \code{collapse} argument of \code{base::paste}.
+#' @param collapse character. Passed into the \code{collapse} argument of \code{base::paste}.
 #' @export
 pp <- function(..., envir = parent.frame(), sep = '', collapse = '') {
   string <- list(...)
@@ -22,7 +41,7 @@ pp <- function(..., envir = parent.frame(), sep = '', collapse = '') {
         eval(parse(text = substr(string, starts[i], starts[i] + lengths[i] - 1)),
         envir = envir)
        ))
-    
+
     last <- starts[i] + lengths[i] + 1
   }
   buildstr <- append(buildstr, substr(string, last, nchar(string)))
