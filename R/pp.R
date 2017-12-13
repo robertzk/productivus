@@ -49,8 +49,12 @@ pp <- function(..., envir = parent.frame(), sep = '', collapse = '') {
 }
 
 
+#' @export
 pmessage <- function(...) { message(pp(...)) }
 
+#' @export
+pwarning <- function(...) { warning(pp(...)) }
+
+#' @export
 pstop <- function(...) { stop(pp(...)) }
 
-pwarning <- function(...) { warning(pp(...)) }
