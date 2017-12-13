@@ -47,3 +47,10 @@ pp <- function(..., envir = parent.frame(), sep = '', collapse = '') {
   buildstr <- append(buildstr, substr(string, last, nchar(string)))
   paste(buildstr, collapse = '')
 }
+
+
+pmessage <- function(...) { message(pp(...)) }
+
+pstop <- function(...) { stop(pp(...)) }
+
+pwarning <- function(...) { warning(pp(...)) }
