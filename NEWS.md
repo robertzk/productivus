@@ -1,4 +1,4 @@
-# Version 0.1.3
+# Version 0.1.4
 
 * Added `pp` wrappers for `message`, `stop`, and `warning`.
 
